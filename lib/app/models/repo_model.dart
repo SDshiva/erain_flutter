@@ -1,3 +1,5 @@
+import 'owner_model.dart';
+
 class Repo {
   final int id;
   final String name;
