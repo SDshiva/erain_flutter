@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:http/http.dart' as http;
 import '../models/repo_model.dart';
@@ -12,7 +11,6 @@ class GithubServices {
         '$baseUrl/search/repositories?q=$platform&page=$page&per_page=10&sort=stars&order=desc'));
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
-      log("This is to see the response: $data");
       return (data['items'] as List).map((e) => Repo.fromJson(e)).toList();
     } else {
       throw Exception('Failed to load repos');
