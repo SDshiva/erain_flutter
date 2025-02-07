@@ -14,12 +14,18 @@ class DatabaseHelper {
   DatabaseHelper._internal();
 
   Future<Database> get database async {
-    if (_database != null) return _database!;
+    print("DatabaseHelper.database called");
+    if (_database != null) {
+      print("DatabaseHelper.database returning existing database");
+      return _database!;
+    }
+
     _database = await _initDatabase();
     return _database!;
   }
 
   Future<Database> _initDatabase() async {
+    print("DatabaseHelper._initDatabase called");
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, 'repos.db');
 
@@ -37,6 +43,7 @@ class DatabaseHelper {
         name TEXT,
         description TEXT,
         updatedAt TEXT,
+        watchers INTEGER,
         ownerLogin TEXT,
         ownerAvatarUrl TEXT
       )
@@ -45,6 +52,7 @@ class DatabaseHelper {
 
   // Insert or update repositories
   Future<void> insertRepos(List<Repo> repos) async {
+    print("DatabaseHelper.insertRepos called");
     final db = await database;
     for (var repo in repos) {
       await db.insert(
@@ -54,6 +62,7 @@ class DatabaseHelper {
           'name': repo.name,
           'description': repo.description,
           'updatedAt': repo.updatedAt.toIso8601String(),
+          'watchers': repo.watchers,
           'ownerLogin': repo.owner.login,
           'ownerAvatarUrl': repo.owner.avatarUrl,
         },
@@ -72,6 +81,7 @@ class DatabaseHelper {
         name: maps[i]['name'],
         description: maps[i]['description'],
         updatedAt: DateTime.parse(maps[i]['updatedAt']),
+        watchers: maps[i]['watchers'],
         owner: Owner(
           login: maps[i]['ownerLogin'],
           avatarUrl: maps[i]['ownerAvatarUrl'],
@@ -94,6 +104,7 @@ class DatabaseHelper {
         name: maps[i]['name'],
         description: maps[i]['description'],
         updatedAt: DateTime.parse(maps[i]['updatedAt']),
+        watchers: maps[i]['watchers'],
         owner: Owner(
           login: maps[i]['ownerLogin'],
           avatarUrl: maps[i]['ownerAvatarUrl'],

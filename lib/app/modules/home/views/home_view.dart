@@ -10,9 +10,17 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("List of Repositories"),
+        title: const Text(
+          "Github Repositories",
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         centerTitle: true,
+        backgroundColor: Colors.black87,
       ),
+      backgroundColor: Colors.grey[300],
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(10),

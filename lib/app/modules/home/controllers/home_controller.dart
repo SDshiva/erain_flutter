@@ -40,6 +40,7 @@ class HomeController extends GetxController {
       }
     } catch (e) {
       // If API call fails, load repositories from the database
+      print("Getting data from the database");
       final cachedRepos =
           await _databaseHelper.getPaginatedRepos(pageCount.value, 10);
       if (cachedRepos.isNotEmpty) {

@@ -5,6 +5,7 @@ class Repo {
   final String name;
   final String description;
   final DateTime updatedAt;
+  final int watchers;
   final Owner owner;
 
   Repo({
@@ -12,6 +13,7 @@ class Repo {
     required this.name,
     required this.description,
     required this.updatedAt,
+    required this.watchers,
     required this.owner,
   });
 
@@ -21,6 +23,7 @@ class Repo {
       name: json['name'],
       description: json['description'] ?? 'No description',
       updatedAt: DateTime.parse(json['updated_at']),
+      watchers: json['watchers'] ?? 0,
       owner: Owner.fromJson(json['owner']),
     );
   }

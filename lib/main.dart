@@ -7,7 +7,7 @@ import 'app/routes/app_pages.dart';
 void main() {
   runApp(
     GetMaterialApp(
-      title: "Github Repos",
+      title: "Popular Repos",
       debugShowCheckedModeBanner: false,
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,

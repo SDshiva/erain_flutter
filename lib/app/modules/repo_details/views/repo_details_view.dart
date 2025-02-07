@@ -13,11 +13,17 @@ class RepoDetailsView extends GetView<RepoDetailsController> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          repo.name,
-          style: const TextStyle(fontWeight: FontWeight.bold),
+          repo.name.toUpperCase(),
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
         ),
+        backgroundColor: Colors.black87,
+        foregroundColor: Colors.white,
         centerTitle: true,
       ),
+      backgroundColor: Colors.grey[300],
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -39,7 +45,19 @@ class RepoDetailsView extends GetView<RepoDetailsController> {
       children: [
         CircleAvatar(
           radius: 40,
-          backgroundImage: NetworkImage(repo.owner.avatarUrl),
+          backgroundColor: Colors.grey[200],
+          child: ClipOval(
+            child: Image.network(
+              repo.owner.avatarUrl,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return Image.asset(
+                  controller.defaultAvatar,
+                  fit: BoxFit.cover,
+                );
+              },
+            ),
+          ),
         ),
         const SizedBox(width: 16),
         Expanded(
@@ -47,7 +65,7 @@ class RepoDetailsView extends GetView<RepoDetailsController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Owner: ${repo.owner.login}",
+                "Owner: ${repo.owner.login.toUpperCase()}",
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -70,7 +88,10 @@ class RepoDetailsView extends GetView<RepoDetailsController> {
       children: [
         const Text(
           "Repository Description:",
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         const SizedBox(height: 10),
         Text(
@@ -79,24 +100,36 @@ class RepoDetailsView extends GetView<RepoDetailsController> {
               : repo.description,
           style: const TextStyle(fontSize: 16),
         ),
+        const SizedBox(height: 20),
+        Row(
+          children: [
+            Text(
+              "Watchers: ",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            Text(
+              repo.watchers.toString(),
+              style: const TextStyle(fontSize: 16),
+            ),
+          ],
+        ),
       ],
     );
   }
 
   Widget _updatedDateSection(Repo repo) {
-    return Column(
+    return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
           "Last Updated:",
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(width: 8),
         Text(
           controller.formatDate(repo.updatedAt),
           style: const TextStyle(
-            fontSize: 14,
-            color: Colors.grey,
+            fontSize: 16,
           ),
         ),
       ],
