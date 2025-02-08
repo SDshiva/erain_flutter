@@ -13,7 +13,12 @@ This is a Flutter application that fetches and displays GitHub repositories usin
    - **Watchers**  
    - **Last Update Date/Time in MM-DD-YYYY HH:SS format**  
 
-## Screenshots  
+## Screenshots 
 
+
+![Screen_1](screenshots/homepage.jpg)
+
+
+![Screen_2](screenshots/detailspage.jpg)
 
 
